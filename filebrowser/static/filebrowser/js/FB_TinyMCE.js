@@ -6,11 +6,12 @@ var FileBrowserDialogue = {
     },
     fileSubmit : function (FileURL) {
         var URL = FileURL;
-        var win = tinyMCEPopup.getWindowArg("window");
-        
+        var dialogArguments = top.tinyMCE.activeEditor.windowManager.getParams(window);
+        var win = dialogArguments.window;
+
         // insert information now
-        win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = URL;
-        
+        win.document.getElementById(dialogArguments.input).value = URL;
+
         // change width/height & show preview
         if (win.ImageDialog){
             if (win.ImageDialog.getImageData)
@@ -18,11 +19,8 @@ var FileBrowserDialogue = {
             if (win.ImageDialog.showPreviewImage)
                 win.ImageDialog.showPreviewImage(URL);
         }
-        
+
         // close popup window
-        tinyMCEPopup.close();
+        top.tinyMCE.activeEditor.windowManager.close();
     }
 }
-
-tinyMCEPopup.onInit.add(FileBrowserDialogue.init, FileBrowserDialogue);
-
